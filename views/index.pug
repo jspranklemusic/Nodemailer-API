@@ -1,0 +1,92 @@
+doctype html
+html(lang='en')
+ head
+    title Netlify Inbox (#{emails.length})
+    style(type="text/css").
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap');
+
+      *{
+        margin:0;
+        padding:0;
+        font-family: 'Roboto', sans-serif;
+        
+      }
+      body{
+        background:darkgrey;
+      }
+      .email-container{
+        background:lightgrey;
+        width:50vw;
+        min-width:280px;
+        margin:auto;
+        padding:1rem;
+        margin-bottom:2rem;
+        border-radius:5px;
+        box-shadow:2px 5px 20px black;
+      }
+      .sender-container{
+        background:#0e5725;
+        color:white;
+        width:calc(100% + 2rem);
+        margin-left:-1rem;
+        padding-top:1rem;
+        padding-bottom:1rem;
+        margin-top:-1rem;
+        text-align:center;
+        border-top-left-radius:5px;
+        border-top-right-radius:5px;
+      }
+      .smallfont{
+        font-size:0.8rem;
+      }
+      .thinfont{
+        font-weight:300;
+        font-size:0.9rem;
+      }
+      .grey{
+        color:grey;
+      }
+      .lightgrey{
+        color:lightgrey
+      }
+      .inbox-container{
+        text-align:center;
+        background:#3b3b3b;
+        color:white;
+      }
+      button{
+        font-size:0.8rem;
+      }
+      p{
+        white-space: pre-line;
+      }
+     
+     
+ body
+   div.inbox-container
+    br
+    h1 Netlify Inbox
+    p.thinfont You have #{emails.length} messages.
+    br
+
+   div.remark
+    br
+    br
+    br
+    each email in emails
+      div.email-container
+        div.sender-container
+          h2= email.name
+          p.thinfont.lightgrey= email.email
+        br
+        p.message= email.message
+        br
+        div.grey
+          
+ 
+          em.smallfont= "Message received on "+new Date().toLocaleDateString(email.timestamp)+" at "+new Date(email.timestamp).toLocaleTimeString()
+          br
+          a(href="mailto:#{email.email}")
+            button Reply
+          button Delete
+
